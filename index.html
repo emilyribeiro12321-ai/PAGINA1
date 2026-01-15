@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <script
-	src="https://cdn.jsdelivr.net/gh/xTracky/static@latest/utm-handler.js"
-	data-token="c860ed5f-04a5-4b58-a1f1-2234e079e64b"
->
-</script>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Acesso Exclusivo</title>
+
+  <!-- xTracky - SCRIPT DE RASTREAMENTO -->
+  <script
+    src="https://cdn.xtracky.com/scripts/utm-handler.js"
+    data-token="c860ed5f-04a5-4b58-a1f1-2234e079e64b"
+  ></script>
 
   <!-- SALVA UTMs SEM ALTERAR VISUAL -->
   <script>
@@ -91,29 +91,30 @@
 
 <body>
   <div class="container">
-    <!-- Substitua o link abaixo pela sua imagem -->
     <img class="logo" src="images/logo.svg" alt="Logo">
 
     <h1>Confirmação de Idade</h1>
-    <p>Este conteúdo é destinado exclusivamente para maiores de 18 anos. Por favor, confirme sua idade para continuar.</p>
+    <p>
+      Este conteúdo é destinado exclusivamente para maiores de 18 anos.
+      Por favor, confirme sua idade para continuar.
+    </p>
 
-    <!-- BOTÃO IDÊNTICO -->
     <button class="btn" id="btn-confirmar">
       Tenho mais de 18 anos
     </button>
   </div>
 
-  <!-- ÚNICA LÓGICA ADICIONADA: REPASSE DE UTMs -->
   <script>
-    document.getElementById("btn-confirmar").addEventListener("click", function () {
+    // Helper exigido pela xTracky para redirecionamentos programáticos
+    function getUrlWithUtm(url) {
       const params = window.location.search || localStorage.getItem("utm_params");
-      const destino = "https://privacyofx.vercel.app/";
+      if (!params) return url;
+      return url + (url.includes('?') ? '&' : '?') + params.replace('?', '');
+    }
 
-      if (params) {
-        window.location.href = destino + params;
-      } else {
-        window.location.href = destino;
-      }
+    document.getElementById("btn-confirmar").addEventListener("click", function () {
+      const destino = "https://privacyofx.vercel.app/";
+      window.location.href = getUrlWithUtm(destino);
     });
   </script>
 </body>
